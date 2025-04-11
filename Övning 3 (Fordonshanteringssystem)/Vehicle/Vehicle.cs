@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Fordonshanteringssystem;
 
-class Vehicle
+internal class Vehicle
 {
     private string Brand;
     private string Model;
@@ -20,19 +20,9 @@ class Vehicle
         Model = model;
         Year = year;
         Weight = weight;
-    }
-
-    public List<Vehicle> Vehicles()
-    {
-        return new List<Vehicle>();
-    }
+    } 
 
     // Validation methods
-
-    public Vehicle Get
-    {
-        get { return this; }        
-    }
 
     public string ValidateBrand
     {
@@ -91,6 +81,8 @@ class Vehicle
         }
 
         return value;
-    }
+    }   
 
 }
+
+

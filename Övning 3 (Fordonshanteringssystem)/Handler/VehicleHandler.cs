@@ -8,34 +8,32 @@ namespace Fordonshanteringssystem.Handler
 {
     class VehicleHandler
     {
-        private readonly List<Vehicle> _vehicles;
-
+        private readonly List<Fordonshanteringssystem.Vehicle> _vehicles = [];
 
         public VehicleHandler() 
         { 
-        
+            
         }
-        
-        
-        
-        public void Create_Vehicle(string brand, string model, int year, double weight)
-        {    
-            Vehicle vehicle = new(brand, model, year, weight);
+
+        public void Create(string brand, string model, int year, double weight)
+        {                      
+            Fordonshanteringssystem.Vehicle vehicle = new(brand, model, year, weight);                    
+            Add(vehicle);   
+        }
+
+        public void Add(Fordonshanteringssystem.Vehicle vehicle)
+        {
             _vehicles.Add(vehicle);
-            
         }
 
-        public void Edit_Vehicle(Vehicle vehicle)
+        public void Edit(Vehicle vehicle)
         {
+            _vehicles.FirstOrDefault(c => c.Equals (vehicle));
+        }          
 
-        }
-        
-        public void List_Vehicles()
-        {
+        public IReadOnlyList<Fordonshanteringssystem.Vehicle> Vehicles => _vehicles;
 
-            
-                
-        }
-        
     }
+
+   
 }
