@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Fordonshanteringssystem;
 
-internal class Vehicle
+public abstract class Vehicle
 {
     private string Brand;
     private string Model;
@@ -81,7 +81,22 @@ internal class Vehicle
         }
 
         return value;
-    }   
+    }
+
+    public abstract void StartEngine()
+    {
+        Console.WriteLine();
+    }
+
+    public abstract void Stats();
+
+   
+
+   
+
+   
+
+    
 
 }
 
