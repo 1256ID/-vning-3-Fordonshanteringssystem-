@@ -60,8 +60,7 @@ internal class Program
 
         do
         {
-            
-            
+                  
             string brand = "";
             string model = "";
             int year = 0;
@@ -167,6 +166,17 @@ internal class Program
 
     public void EditVehicle()
     {
+        string brand = "";
+        string model = "";
+        int year = 0;
+        double weight = 0;
+        int boolAnswer = 0;
+        bool boolValue = false;
+        int intAnswer = 0;
+
+        ShowVehicles();
+        int index = Utils.PromptUserForNumericalInput("nummer på fordonet");
+
 
     }
 
@@ -177,7 +187,15 @@ internal class Program
 
     public void ShowVehicles()
     {
+        VehicleHandler vehicleHandler = new();
+        int index = 0;
 
+        foreach (Vehicle vehicle in vehicleHandler.Vehicles)
+        {
+            Console.WriteLine("Fordon " + index + 1);
+            Utils.PrintAllProperties(vehicle);
+            index++;
+        }   
     }
 
 }

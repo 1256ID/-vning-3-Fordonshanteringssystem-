@@ -81,7 +81,12 @@ namespace Fordonshanteringssystem.Handler
         public void Edit(Vehicle vehicle, int index)
         {           
             _vehicles[index] = vehicle;
-        }          
+        }  
+        
+        public void Remove(Vehicle vehicle, int index)
+        {
+            _vehicles.RemoveAt(index);
+        }
 
         public IReadOnlyList<Fordonshanteringssystem.Vehicle> Vehicles => _vehicles;
 

@@ -112,5 +112,19 @@ namespace Fordonshanteringssystem
             return output;
 
         }
+
+        public static void PrintAllProperties(object obj)
+        {
+            var type = obj.GetType();
+            var properties = type.GetProperties();
+
+            Console.WriteLine($"[{type.Name}]");
+
+            foreach (var prop in properties)
+            {
+                var value = prop.GetValue(obj);
+                Console.WriteLine($"\n{prop.Name}: {value}");
+            }
+        }
     }
 }
