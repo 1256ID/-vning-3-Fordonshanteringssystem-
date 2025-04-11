@@ -9,94 +9,79 @@ namespace Fordonshanteringssystem;
 
 public abstract class Vehicle
 {
-    private string Brand;
-    private string Model;
-    private int Year;
-    private double Weight;
+    private string brand;
+    private string model;
+    private int year;
+    private double weight;
 
-    public Vehicle(string brand, string model, int year, double weight)
+    public Vehicle()
     {
-        Brand = brand;
-        Model = model;
-        Year = year;
-        Weight = weight;
+        
     } 
 
     // Validation methods
 
-    public string ValidateBrand
+    public string Brand
     {
-        get { return Brand; }
-        private set
+        get { return brand; }
+        set
         {
-            Brand = ValidateName(value, nameof(Brand));
+            brand = ValidateName(value);
         }
     } 
 
-    public string ValidateModel
+    public string Model
     {
-        get { return Model; }
-        private set 
+        get { return model; }
+        set 
         { 
-            Model = ValidateName(value, nameof(Model));
+            model = ValidateName(value);
         }
     }
 
-    public int ValidateYear
+    public int Year
     {
-        get { return Year; }
-        private set
+        get { return year; }
+        set
         {
             DateTime dateOfToday = DateTime.Today;
             if (value >= 1886 && value <= dateOfToday.Year)
-                Year = value;
+                year = value;
             else            
-                throw new ArgumentException($"{nameof(Year)}: {value}");
+                throw new ArgumentException("Årtalet måste vara mellan 1886 och " + Convert.ToString(dateOfToday.Year));
             
         }
     }
 
-    public double ValidateWeight
+    public double Weight
     {
-        get { return Weight; }
-        private set
+        get { return weight; }
+        set
         {
             if (value > 0)
-                Weight = value;
+                weight = value;
             else
-                throw new ArgumentException("");       
+                throw new ArgumentException("Vikten måste vara större än noll.");       
         }
     }
 
-    private string ValidateName(string value, string propName)
+    private string ValidateName(string value)
     {
         if (string.IsNullOrEmpty(value))
         {
-            throw new ArgumentNullException(nameof(value));
+            throw new ArgumentNullException("Inmatningsvärdet får inte vara null/tomt.");
         }
 
         if (value.Length < 2 || value.Length > 20)
         {
-            throw new ArgumentException("");
+            throw new ArgumentException("Inmatningen måste vara mellan 2 - 20 karaktärer.");
         }
 
         return value;
     }
 
-    public abstract void StartEngine()
-    {
-        Console.WriteLine();
-    }
-
-    public abstract void Stats();
-
-   
-
-   
-
-   
-
-    
+    public abstract void StartEngine();
+    public abstract void Stats();   
 
 }
 

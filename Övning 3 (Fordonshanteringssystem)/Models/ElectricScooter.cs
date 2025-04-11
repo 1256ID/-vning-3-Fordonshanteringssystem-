@@ -8,10 +8,16 @@ namespace Fordonshanteringssystem.Models
 {
     class ElectricScooter : Vehicle
     {
-        private string BatteryRang;
+        private int batteryRang;
 
         public ElectricScooter()
         {
+        }
+
+        public int BatteryRang
+        {
+            get { return batteryRang; }
+            set { batteryRang = value; }
         }
 
         public override void StartEngine()

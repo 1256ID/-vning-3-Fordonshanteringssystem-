@@ -1,17 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.Marshalling;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Fordonshanteringssystem.Models
 {
-    class Car : Vehicle
+    internal class Car : Vehicle
     {
-        private bool HasSunroof;
+        private bool hasRoof;
 
         public Car()
         {
+        }
+
+        public bool HasRoof
+        {
+            get { return hasRoof; }
+            set {  hasRoof = value; }                
         }
 
         public override void StartEngine()

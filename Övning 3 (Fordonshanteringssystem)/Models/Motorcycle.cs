@@ -8,10 +8,16 @@ namespace Fordonshanteringssystem.Models
 {
     class Motercycle : Vehicle
     {
-        private bool HasSidecar;
+        private bool hasSidecar;
 
         public Motercycle()
         {
+        }
+
+        public bool HasSidecar
+        {
+            get { return hasSidecar; }
+            set { hasSidecar = value; }
         }
 
         public override void StartEngine()

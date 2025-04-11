@@ -8,14 +8,18 @@ namespace Fordonshanteringssystem.Models
 {
     class Truck : Vehicle
     {
-        private int CargoCapacity;
+        private int cargoCapacity;
 
-        public Truck(int cargoCapacity)
+        public Truck()
         {
-            CargoCapacity = cargoCapacity;
+           
         }
 
-
+        public int CargoCapacity
+        {
+            get { return cargoCapacity; }
+            set { cargoCapacity = value; }
+        }
         public override void StartEngine()
         {
             Console.Write("Startar tändningen för tung last.");
