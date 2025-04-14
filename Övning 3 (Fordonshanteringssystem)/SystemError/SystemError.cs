@@ -4,28 +4,43 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Fordonshanteringssystem.SystemError
+namespace Fordonshanteringssystem.SystemError;
+
+public abstract class SystemError
 {
-    public abstract class SystemError
+    protected abstract void ErrorMessage();
+    
+
+    class EngineFailureError
     {
-        protected abstract void ErrorMessage();
-        
+        private string errorMessage = "Motorfel: Kontrollera motorstatus!";
 
-        class EngineFailureError
+        public string ErrorMessage
         {
-
+            get { return errorMessage; }
         }
-
-        class BrakeFailureError
-        {
-
-        }
-
-        class TransmissionError
-        {
-
-        }
-
-
     }
+
+    class BrakeFailureError
+    {
+        private string errorMessage = "Bromsfel: Fordonet är osäkert att köra!";
+
+        public string ErrorMessage
+        {
+            get { return errorMessage; }
+        }
+    }
+
+
+    class TransmissionError
+    {
+        private string errorMessage = "Växellådsproblem: Reparation krävs!";
+
+        public string ErrorMessage
+        {
+            get { return errorMessage; }
+        }
+    }
+
 }
+

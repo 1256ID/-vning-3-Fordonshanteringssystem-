@@ -10,77 +10,16 @@ namespace Fordonshanteringssystem.Handler
 {
     class VehicleHandler
     {
-        public List<Vehicle> _vehicles =
-        [
-            new Car
-            {
-                Brand = "Volvo",
-                Model = "XC90",
-                Year = 2021,
-                Weight = 2000,
-                HasRoof = true
-            },
-            new Car
-            {
-                Brand = "Mazda",
-                Model = "MX-5",
-                Year = 2020,
-                Weight = 1300,
-                HasRoof = false
-            },
-            new Truck
-            {
-                Brand = "Scania",
-                Model = "R450",
-                Year = 2019,
-                Weight = 8000,
-                CargoCapacity = 20000
-            },
-            new Truck
-            {
-                Brand = "Volvo",
-                Model = "FH16",
-                Year = 2022,
-                Weight = 8500,
-                CargoCapacity = 25000
-            },
-            new Motorcycle
-            {
-                Brand = "Harley-Davidson",
-                Model = "Street 750",
-                Year = 2018,
-                Weight = 220,
-                HasSidecar = false
-            },
-            new Motorcycle
-            {
-                Brand = "Ural",
-                Model = "Gear Up",
-                Year = 2021,
-                Weight = 320,
-                HasSidecar = true
-            },
-            new ElectricScooter
-            {
-                Brand = "Xiaomi",
-                Model = "Mi Scooter Pro 2",
-                Year = 2022,
-                Weight = 12.5,
-                BatteryRange = 45
-            },
-            new ElectricScooter
-            {
-                Brand = "E-Wheels",
-                Model = "E2S V2",
-                Year = 2023,
-                Weight = 11.8,
-                BatteryRange = 40
-            }
-        ];
+        public List<Vehicle> Vehicles { get; private set; } = [];
 
         public VehicleHandler() 
         { 
             
+        }
+
+        public void LoadSampleData()
+        {
+            Vehicles.AddRange(SampleData.GetSampleVehicles());
         }
 
         public void CreateVehicle(string brand, string model, int year, double weight, int uniqueVariable, int selectedType)
@@ -149,22 +88,22 @@ namespace Fordonshanteringssystem.Handler
 
         public void Add(Vehicle vehicle)
         {
-            _vehicles.Add(vehicle);          
+            Vehicles.Add(vehicle);          
         }
 
         public void Update(Vehicle vehicle, int index)
         {           
-            _vehicles[index] = vehicle;
+            Vehicles[index] = vehicle;
         }  
         
         public void Remove(int index)
         {
-            _vehicles.RemoveAt(index);
+            Vehicles.RemoveAt(index);
         }
 
         public int GetVehicleCount()
         {
-            return _vehicles.Count();
+            return Vehicles.Count();
         }
 
     }

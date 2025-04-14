@@ -12,9 +12,11 @@ internal class Program
     private VehicleHandler VehicleHandler = new();
     public static void Main()
     {
+        
         int index = 0;
         bool programIsRunning = true;
         Program program = new();
+        program.VehicleHandler.LoadSampleData();
         Random random = new Random();
         int randomValue = random.Next(1, 6);
 
@@ -155,13 +157,19 @@ internal class Program
                 selectedType = 3;
 
             var properties = type.GetProperties();
+
             string stringValue;
             int year;
             double weight;
             int uniqueVariable = 0;
-            int count = 0;
+           
             object? newValue = null;
-
+            var initialValue = properties[selectedVariable].GetValue(vehicle);
+            string[] relevantText = Utils.GetRelatedText(selectedType, false);
+            string selectedPropName = vehicle.GetType()
+                .GetProperties()
+                .ElementAt(selectedVariable)
+                .Name;
 
 
             string[] vehicleTypes =
@@ -170,23 +178,9 @@ internal class Program
                 "Motorcykel",
                 "Lastbil",
                 "El-scooter"
-            };
+            };    
 
-            string[] relevantText = Utils.GetRelatedText(selectedType, false);
-            string propName = "";
-
-            foreach (var prop in properties)
-            {
-                if (count == selectedVariable)
-                {
-                    propName = prop.Name;
-                    newValue = prop.GetValue(vehicle);
-                }
-
-                count++;
-            }
-
-            if (propName == "HasRoof" || propName == "HasSidecar")
+            if (selectedPropName  == "HasRoof" || selectedPropName  == "HasSidecar")
             {
                 uniqueVariable = Menu.Display
                 (
@@ -196,38 +190,31 @@ internal class Program
                         "Nej"
                    ], uniqueVariable
                 );
-            }
+            }          
 
-
-
-            else if (propName == "CargoCapacity" || propName == "BatteryRange")
+            else if (selectedPropName  == "CargoCapacity" || selectedPropName  == "BatteryRange")
             {
                 uniqueVariable = Utils.PromptUserForNumericalInput(relevantText[0]);
             }
 
-            else if (propName == "Brand" || propName == "Model")
+            else if (selectedPropName  == "Brand" || selectedPropName  == "Model")
             {
                 stringValue = Utils.PromptUserForTextInput("Ange märke för " + vehicleTypes[selectedType] + ": ");
             }
 
-            else if (propName == "Year")
+            else if (selectedPropName  == "Year")
             {
                 year = Utils.PromptUserForNumericalInput("årstal");
             }
 
-            else if (propName == "Weight")
+            else if (selectedPropName  == "Weight")
             {
                 weight = Utils.PromptUserForNumericalInput("vikt");
             }
+          
 
-            foreach (var prop in properties)
-            {
-                if (prop.Name == propName)
-                {
-                    prop.SetValue(vehicle, newValue);
-
-                }
-            }
+            if (newValue != null && newValue != initialValue)           
+                properties[selectedVariable].SetValue(vehicle, newValue);               
 
             Console.Clear();
             Console.WriteLine(relevantText[1] + Utils.continueText);
@@ -270,7 +257,7 @@ internal class Program
                 break;
             }
 
-            Vehicle selectedVehicle = VehicleHandler._vehicles[vehicleIndex];
+            Vehicle selectedVehicle = VehicleHandler.Vehicles[vehicleIndex];
             string selectedVehicleAsString = Utils.SavePropsToString(selectedVehicle);
 
             index = Menu.Display
@@ -291,7 +278,7 @@ internal class Program
                     Console.Clear();
                     propIndex = Menu.Display
                     (
-                        "Fordon\n\n" + selectedVehicleAsString + "\n\n",
+                        "Fordon\n\n"    ,
                         selectedVehicleArray,
                         propIndex
                     );
@@ -341,7 +328,7 @@ internal class Program
         string[] vehicleArray = new string[VehicleHandler.GetVehicleCount() + 1];
         int index = 0;
 
-        foreach (Vehicle vehicle in VehicleHandler._vehicles)
+        foreach (Vehicle vehicle in VehicleHandler.Vehicles)
         {
             vehicleArray[index] = Utils.SavePropsToStringOnSameLine(vehicle);
             index++;
@@ -358,7 +345,7 @@ internal class Program
 
         int index = 0;
 
-        foreach (Vehicle vehicle in VehicleHandler._vehicles)
+        foreach (Vehicle vehicle in VehicleHandler.Vehicles)
         {
             Console.WriteLine("Fordon " + index + 1);
             Utils.PrintAllProperties(vehicle);
