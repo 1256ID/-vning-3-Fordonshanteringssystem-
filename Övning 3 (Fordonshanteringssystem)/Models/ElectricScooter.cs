@@ -20,13 +20,15 @@ namespace Fordonshanteringssystem.Models
             set { batteryRange = value; }
         }
 
-        public override void StartEngine()
+        public override async void StartEngine()
         {
-            Console.Clear();
-            Console.WriteLine("Trycker på strömknappen...");
-            Task.Delay(500);
-            Console.WriteLine("Mjukt pip. Lamporna tänds. Klar för tyst färd.");
-            Console.ReadKey();
+            Console.Write("Trycker på strömknappen.");
+            await Task.Delay(1000);
+            Console.Write(".");
+            await Task.Delay(1000);
+            Console.Write(".");
+            await Task.Delay(1000);
+            Console.WriteLine("\n\nMjukt pip. Lamporna tänds. Klar för tyst färd.");
             Console.WriteLine(Utils.continueText);
         }
         public override void Stats()
@@ -34,8 +36,18 @@ namespace Fordonshanteringssystem.Models
             base.Stats();
             Console.WriteLine
                 (
-                    $"Batteritid: {batteryRange}"
+                    $"Batteritid: {BatteryRange}"
                 );
+        }    
+
+
+        public override string StatsAsString(bool OnSameLine)
+        {
+            string newLine = "\n";
+            if (OnSameLine)
+                newLine = " ";
+            string output = base.StatsAsString(OnSameLine);
+            return output += newLine + $"Batteritid: {BatteryRange}";
         }
 
 

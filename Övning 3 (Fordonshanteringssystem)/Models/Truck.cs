@@ -12,7 +12,7 @@ namespace Fordonshanteringssystem.Models
 
         public Truck()
         {
-           
+
         }
 
         public int CargoCapacity
@@ -20,23 +20,21 @@ namespace Fordonshanteringssystem.Models
             get { return cargoCapacity; }
             set { cargoCapacity = value; }
         }
-        public override void StartEngine()
+        public override async void StartEngine()
         {
-            Console.Clear();
             Console.Write("Startar tändningen för tung last.");
-            Task.Delay(1000);
+            await Task.Delay(2000);
             Console.Write(".");
-            Task.Delay(1000);
+            await Task.Delay(2000);
             Console.Write(".");
-            Task.Delay(1000);
-            Console.WriteLine("Djupt mullrande.");
-            Task.Delay(1000);
+            await Task.Delay(2000);
+            Console.Write("\nDjupt mullrande.");
+            await Task.Delay(2000);
             Console.Write(".");
-            Task.Delay(1000);
+            await Task.Delay(2000);
             Console.Write(".");
-            Task.Delay(1000);
-            Console.Write(" Lastbilsmotorn går igång med kraft.");
-            Console.ReadKey();
+            await Task.Delay(2000);
+            Console.WriteLine("\n\nLastbilsmotorn går igång med kraft.");
             Console.WriteLine(Utils.continueText);
         }
 
@@ -45,9 +43,18 @@ namespace Fordonshanteringssystem.Models
             base.Stats();
             Console.WriteLine
                 (
-                    $"Lastkapacitet: {cargoCapacity}"
+                    $"Lastkapacitet: {CargoCapacity}"
                 );
         }
 
+        public override string StatsAsString(bool OnSameLine)
+        {
+            string newLine = "\n";
+            if (OnSameLine)
+                newLine = " ";
+            string output = base.StatsAsString(OnSameLine);
+            return output += newLine + $"Lastkapacitet: {CargoCapacity}";
+
+        }
     }
 }

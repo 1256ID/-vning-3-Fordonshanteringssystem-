@@ -8,7 +8,6 @@ namespace Fordonshanteringssystem;
 
 internal class Program
 {
-
     private VehicleHandler VehicleHandler = new();
     public static void Main()
     {
@@ -20,11 +19,8 @@ internal class Program
         Random random = new Random();
         int randomValue = random.Next(1, 6);
 
-
-
         do
         {
-
             string[] vehicleArray = program.GetVehiclesAsArray();
             index = Menu.Display
             (
@@ -35,8 +31,6 @@ internal class Program
                     "Avsluta programmet"
                 ], index
             );
-
-
 
             switch (index)
             {
@@ -144,9 +138,7 @@ internal class Program
         int index = 0;
         int vehicleIndex = 0;
         int propIndex = 0;
-        bool editingVehicle = true;
-
-
+        bool managingVehicles = true;     
         do
         {
             Console.Clear();
@@ -161,61 +153,71 @@ internal class Program
 
             if (vehicleIndex == vehiclesArray.Length - 1)
             {
-                editingVehicle = false;
+                managingVehicles = false;
                 break;
             }
 
             Vehicle selectedVehicle = VehicleHandler.Vehicles[vehicleIndex];
-            string selectedVehicleAsString = Utils.SavePropsToString(selectedVehicle);
+            bool selectingVehicle = true;
 
-            index = Menu.Display
-            (
-               "Fordon\n\n" + selectedVehicleAsString + "\n\n",
-               [
-                   "Ändra på fordonet",
-                   "Ta bort fordonet",
-                   "Gå tillbaka till förgående meny"
-               ], index
-            );
-
-            switch (index)
+            while (selectingVehicle)
             {
-                case 0:
+                Console.Clear();
+                string stats = selectedVehicle.StatsAsString(false);
+                index = Menu.Display
+                (
+                      "Fordon\n\n" + stats + "\n\n",
+                      [
+                          "Starta fordonet",
+                           "Ändra på fordonet",
+                           "Ta bort fordonet",
+                           "Gå tillbaka till förgående meny"
+                      ], index
+                );
 
-                    string[] selectedVehicleArray = Utils.GetVehicleAsArray(selectedVehicle);
-                    Console.Clear();
-                    propIndex = Menu.Display
-                    (
-                        "Fordon\n\n"    ,
-                        selectedVehicleArray,
-                        propIndex
-                    );
+                switch (index)
+                {
+                    case 0:
 
-                    if (propIndex != selectedVehicleArray.Length - 1)
-                    {
-                        selectedVehicle = GetUpdatedValue(selectedVehicle, propIndex);
-                        VehicleHandler.Update(selectedVehicle, vehicleIndex);
-                    }
+                        Console.Clear();
+                        selectedVehicle.StartEngine();
+                        Console.ReadKey();
+                        break;
 
-                    editingVehicle = false;
-                    break;
+                    case 1:
 
+                        string[] selectedVehicleArray = Utils.GetVehicleAsArray(selectedVehicle);
+                        Console.Clear();
+                        propIndex = Menu.Display
+                        (
+                            "Fordon\n\n",
+                            selectedVehicleArray,
+                            propIndex
+                        );
 
-                case 1:
-
-                    RemoveVehicle(index);
-                    editingVehicle = false;
-                    break;
-
-                case 2:
-                    editingVehicle = false;
-                    break;
-
+                        if (propIndex != selectedVehicleArray.Length - 1)
+                        {
+                            selectedVehicle = GetUpdatedValue(selectedVehicle, propIndex);
+                            VehicleHandler.Update(selectedVehicle, vehicleIndex);
+                        }
+                        
+                        break;
 
 
-            }
+                    case 2:
 
-        } while (editingVehicle);
+                        RemoveVehicle(index);
+                        selectingVehicle = false;
+                        break;
+
+                    case 3:
+                        selectingVehicle = false;
+                        break;
+
+                }               
+            }       
+
+        } while (managingVehicles);
 
     }
 
@@ -228,25 +230,19 @@ internal class Program
         {
             Console.Clear();
             var type = vehicle.GetType();
-            int selectedType = 0;
+            int vehicleType = 0;
             string typeName = type.Name;
             if (typeName == "Truck")
-                selectedType = 1;
+                vehicleType = 1;
             else if (typeName == "MotorCycle")
-                selectedType = 2;
+                vehicleType = 2;
             else if (typeName == "ElectricScooter")
-                selectedType = 3;
+                vehicleType = 3;
 
             var properties = type.GetProperties();
-
-            string stringValue;
-            int year;
-            double weight;
             int uniqueVariable = 0;
-
-            object? newValue = null;
-            var initialValue = properties[selectedVariable].GetValue(vehicle);
-            string[] relevantText = Utils.GetRelatedText(selectedType, false);
+            var newValue = properties[selectedVariable].GetValue(vehicle);
+            string[] relevantText = Utils.GetRelatedText(vehicleType, false);
             string selectedPropName = vehicle.GetType()
                 .GetProperties()
                 .ElementAt(selectedVariable)
@@ -271,34 +267,51 @@ internal class Program
                         "Nej"
                    ], uniqueVariable
                 );
-            }
+
+                if (uniqueVariable == 0)
+                {
+                    newValue = true;
+                }
+
+                else
+                {
+                    newValue = false;
+                }
+            }   
 
             else if (selectedPropName == "CargoCapacity" || selectedPropName == "BatteryRange")
             {
-                uniqueVariable = Utils.PromptUserForNumericalInput(relevantText[0]);
+                newValue = Utils.PromptUserForNumericalInput(relevantText[0]);
             }
 
             else if (selectedPropName == "Brand" || selectedPropName == "Model")
             {
-                stringValue = Utils.PromptUserForTextInput("Ange märke för " + vehicleTypes[selectedType] + ": ");
+                newValue = Utils.PromptUserForTextInput("Ange märke för " + vehicleTypes[vehicleType] + ": ");
             }
 
             else if (selectedPropName == "Year")
             {
-                year = Utils.PromptUserForNumericalInput("årstal");
+                newValue = Utils.PromptUserForNumericalInput("årstal");
             }
 
             else if (selectedPropName == "Weight")
             {
-                weight = Utils.PromptUserForNumericalInput("vikt");
+                newValue = Utils.PromptUserForNumericalInput("vikt");
             }
 
-
-            if (newValue != null && newValue != initialValue)
-                properties[selectedVariable].SetValue(vehicle, newValue);
-
             Console.Clear();
-            Console.WriteLine(relevantText[1] + Utils.continueText);
+
+            if (newValue != null && newValue != properties[selectedVariable].GetValue(vehicle))
+            {
+                properties[selectedVariable].SetValue(vehicle, newValue);
+                Console.WriteLine(relevantText[1] + Utils.continueText);
+            }
+                
+            else
+            {
+                Console.WriteLine("Ingen ändring har gjorts.");
+            }
+                    
             Console.ReadKey();
             addingVehicle = false;
 

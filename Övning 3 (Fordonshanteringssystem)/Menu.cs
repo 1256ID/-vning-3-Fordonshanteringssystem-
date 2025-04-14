@@ -38,7 +38,7 @@ internal class Menu
         {
             Console.Clear();
             Console.WriteLine(menuTitle + "\n");
-            Console.WriteLine(menuOutliners);
+            Console.WriteLine(menuOutliners + "\n");
 
 
             /* 
@@ -53,6 +53,9 @@ internal class Menu
 
             for (int i = 0; i < arr.Length; i++)
             {
+
+                if (arr[i] == "Gå tillbaka till förgående meny")
+                    Console.WriteLine("\n" + menuOutliners + "\n");
 
                 string output = arr[i];
 
@@ -75,18 +78,14 @@ internal class Menu
                 Console.Write("\n");
             }
 
-            Console.WriteLine(menuOutliners);
-
-
-
+            if (arr[arr.Length - 1] != "Gå tillbaka till förgående meny")
+                Console.WriteLine("\n" + menuOutliners);
 
 
 
             // Läser in tangent-input från användare
 
             ConsoleKeyInfo input = Console.ReadKey();
-
-
 
             /*
                 Denna switch-statement Justerar index efter vilken piltangent

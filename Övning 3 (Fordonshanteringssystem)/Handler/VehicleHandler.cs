@@ -92,8 +92,9 @@ namespace Fordonshanteringssystem.Handler
         }
 
         public void Update(Vehicle vehicle, int index)
-        {           
-            Vehicles[index] = vehicle;
+        {
+            if (index >= 0 && index < Vehicles.Count)    
+                Vehicles[index] = vehicle;            
         }  
         
         public void Remove(int index)

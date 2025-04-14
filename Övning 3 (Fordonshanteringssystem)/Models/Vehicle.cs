@@ -85,29 +85,30 @@ public abstract class Vehicle
     {
         Console.WriteLine
             (
-                $"Märke: {brand}\n" +
-                $"Modell: {model}\n" +
-                $"Årtal: {year}\n" +
-                $"Vikt: {weight}\n" 
+                $"Märke: {Brand}\n" +
+                $"Modell: {Model}\n" +
+                $"Årtal: {Year}\n" +
+                $"Vikt: {Weight}\n" 
             );
     }
 
-    /*
-    public virtual void Stats() 
+
+    public virtual string StatsAsString(bool OnSameLine)
     {
-        var type = this.GetType();
-        var properties = type.GetProperties();
+        string newLine = "\n";
 
-        Console.WriteLine($"[{type.Name}]");
+        if (OnSameLine)
+            newLine = " ";
 
-        foreach (var prop in properties)
-        {
-            var value = prop.GetValue(this);
-            Console.WriteLine($" {prop.Name}: {value}");
-        }
 
+        return  $"Märke: {Brand}" + newLine +
+                $"Modell: {Model}" + newLine +
+                $"Årtal: {Year}" + newLine + 
+                $"Vikt: {Weight}";
     }
-    */
+
+   
+    
 }
 
 

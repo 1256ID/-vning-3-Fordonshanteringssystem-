@@ -20,18 +20,16 @@ namespace Fordonshanteringssystem.Models
             set { hasSidecar = value; }
         }
 
-        public override void StartEngine()
+        public override async void StartEngine()
         {
-            Console.Clear();
-            Console.WriteLine("Slår på huvudströmbrytaren och trycker på startknappen.");
-            Task.Delay(800);
+            Console.Write("Slår på huvudströmbrytaren och trycker på startknappen.");
+            await Task.Delay(2000);
             Console.Write(".");
-            Task.Delay(800);
+            await Task.Delay(2000);
             Console.Write(".");
-            Task.Delay(800);
-            Console.WriteLine("Brrrmm! Motorcykeln är redo att köra.");
-            Console.ReadKey();
-            Console.WriteLine(Utils.continueText);
+            await Task.Delay(2000);
+            Console.WriteLine("\n\nBrrrmm! Motorcykeln är redo att köra.");
+            Console.WriteLine(Utils.continueText);     
         }
 
         public override void Stats()
@@ -43,5 +41,15 @@ namespace Fordonshanteringssystem.Models
                 );
         }
 
+        public override string StatsAsString(bool OnSameLine)
+        {
+            string newLine = "\n";
+            if (OnSameLine)
+                newLine = " ";
+            string output = base.StatsAsString(OnSameLine);
+            return output += newLine + $"Har siddel: {HasSidecar}";
+
+        }
+        
     }
 }

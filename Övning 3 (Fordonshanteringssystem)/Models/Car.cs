@@ -21,18 +21,16 @@ namespace Fordonshanteringssystem.Models
             set {  hasRoof = value; }                
         }
 
-        public override void StartEngine()
+        public override async void StartEngine()
         {
-            Console.Clear();
             Console.Write("Sätter in nyckeln och vrider om.");
-            Task.Delay(1000);
+            await Task.Delay(2000);
             Console.Write(".");
-            Task.Delay(1000);
+            await Task.Delay(2000);
             Console.Write(".");
-            Task.Delay(1000);
+            await Task.Delay(2000);
             Console.WriteLine("Vroom! Bilmotorn är igång.");
-            Console.ReadKey();
-            Console.WriteLine(Utils.continueText);
+            Console.WriteLine(Utils.continueText);         
         }
 
         public override void Stats()
@@ -40,8 +38,20 @@ namespace Fordonshanteringssystem.Models
             base.Stats();
             Console.WriteLine
                 (
-                    $"Bilen har ett tak: {hasRoof}"
+                    $"Bilen har ett tak: {HasRoof}"
                 );
-        } 
+        }
+
+        public override string StatsAsString(bool OnSameLine)
+        {
+            string newLine = "\n";
+            if (OnSameLine)
+                newLine = " ";
+            string output = base.StatsAsString(OnSameLine);
+            return output += newLine + $"Biltak: {HasRoof}";
+            
+        }
+
+      
     }
 }

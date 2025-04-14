@@ -169,37 +169,6 @@ namespace Fordonshanteringssystem
             return output;
         }
 
-        public static string SavePropsToString(object obj)
-        {
-            string output = "";
-            var type = obj.GetType();
-            var properties = type.GetProperties();
-            string[] variableNames = ["hasroof", "cargocapacity", "hassidecar", "batteryrange"];
-            string lastVariable = "";
-            output += $"\n[{type.Name}] ";
-
-
-            foreach (var prop in properties)
-            {
-
-                var value = prop.GetValue(obj);
-                if (variableNames.Any(variableName => prop.Name.Equals(variableName.ToLower())))
-                {
-                    lastVariable += $"\n{prop.Name}: {value}";
-                }
-
-                else
-                {
-                    output += $"\n{prop.Name}: {value}";
-                }
-            }
-
-            output += lastVariable;
-
-            return output;
-        }
-
-
         public static string[] GetRelatedText(int selectedType, bool newObject)
         {
             string confirmationText = "skapad";
