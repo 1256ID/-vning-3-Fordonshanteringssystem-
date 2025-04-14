@@ -6,12 +6,10 @@ using System.Threading.Tasks;
 
 namespace Fordonshanteringssystem.SystemError
 {
-    abstract class SystemError
+    public abstract class SystemError
     {
-        public abstract void ErrorMessage()
-        {
-
-        }
+        protected abstract void ErrorMessage();
+        
 
         class EngineFailureError
         {

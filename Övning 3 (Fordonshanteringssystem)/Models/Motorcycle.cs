@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace Fordonshanteringssystem.Models
 {
-    class Motercycle : Vehicle
+    class Motorcycle : Vehicle
     {
         private bool hasSidecar;
 
-        public Motercycle()
+        public Motorcycle()
         {
         }
 

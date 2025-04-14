@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -123,8 +124,124 @@ namespace Fordonshanteringssystem
             foreach (var prop in properties)
             {
                 var value = prop.GetValue(obj);
-                Console.WriteLine($"\n{prop.Name}: {value}");
+                Console.WriteLine($" {prop.Name}: {value}");
             }
+        }
+
+        public static string[] GetVehicleAsArray(object obj)
+        {
+            var type = obj.GetType();
+            var properties = type.GetProperties();
+            int index = 0;
+            string[] outputArray = new string[properties.Length + 1];
+
+
+            foreach (var prop in properties)
+            {
+                var value = prop.GetValue(obj);
+                outputArray[index] = prop.Name + ": " + value;
+                index++;
+            }
+
+            outputArray[index] = "Gå tillbaka till förgående meny";
+
+            return outputArray;
+        }
+
+
+        public static string SavePropsToStringOnSameLine(object obj)
+        {
+            string output = "";
+            var type = obj.GetType();
+            var properties = type.GetProperties();            
+            string[] variableNames = ["hasroof", "cargocapacity", "hassidecar", "batteryrange"];
+            string lastVariable = "";
+            output += $"[{type.Name}] ";
+           
+
+            foreach (var prop in properties)
+            {
+                
+                var value = prop.GetValue(obj);
+                if (variableNames.Any(variableName => prop.Name.Equals(variableName.ToLower())))
+                {
+                    lastVariable = $" {prop.Name}: {value}";
+                }
+
+                else
+                {
+                    output += $" {prop.Name}: {value}";
+                }          
+            }
+
+            output += lastVariable;
+
+            return output;
+        }
+
+        public static string SavePropsToString(object obj)
+        {
+            string output = "";
+            var type = obj.GetType();
+            var properties = type.GetProperties();
+            string[] variableNames = ["hasroof", "cargocapacity", "hassidecar", "batteryrange"];
+            string lastVariable = "";
+            output += $"\n[{type.Name}] ";
+
+
+            foreach (var prop in properties)
+            {
+
+                var value = prop.GetValue(obj);
+                if (variableNames.Any(variableName => prop.Name.Equals(variableName.ToLower())))
+                {
+                    lastVariable += $"\n{prop.Name}: {value}";
+                }
+
+                else
+                {
+                    output += $"\n{prop.Name}: {value}";
+                }
+            }
+
+            output += lastVariable;
+
+            return output;
+        }
+
+
+        public static string[] GetRelatedText(int selectedType, bool newObject)
+        {
+            string confirmationText = "skapad";
+
+            if (!newObject)
+            {
+                confirmationText = "ändrad";
+            }
+           
+            string[] uniqueVariableQuestion =
+            {
+                "Har bilen en taklucka?",
+                "Har motorcyklen en siddel?",
+                "hur många ton klarar lastbilen",
+                "hur många batteri-timmar har el-scootern"
+            };
+
+            string[] creationText =
+            {
+                "Bilen är nu " + confirmationText,
+                "Motorcykeln är nu " + confirmationText,
+                "Lastbilen är nu "  + confirmationText,
+                "El-scootern är nu "  + confirmationText
+            };
+
+            string[] outputArray =
+            {
+                uniqueVariableQuestion[selectedType],
+                creationText[selectedType]
+            };
+
+            return outputArray;
         }
     }
 }
