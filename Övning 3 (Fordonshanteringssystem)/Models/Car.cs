@@ -52,6 +52,15 @@ namespace Fordonshanteringssystem.Models
             
         }
 
-      
+        public override string[] StatsAsStringArray()
+        {
+            string[] array = base.StatsAsStringArray();
+            array[4] = $"Biltak: {HasRoof}";
+            array[5] = "Gå tillbaka till förgående meny";
+
+            return array;
+        }
+
+
     }
 }

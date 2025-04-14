@@ -107,8 +107,22 @@ public abstract class Vehicle
                 $"Vikt: {Weight}";
     }
 
-   
-    
+    public virtual string[] StatsAsStringArray()
+    {
+        string[] array = new string[6];
+
+        array[0] = $"Märke: {Brand}";
+        array[1] = $"Modell: {Model}";
+        array[2] = $"Årtal: {Year}";
+        array[3] = $"Vikt: {Weight}";
+
+
+        return array;
+    }
+
+
+
+
 }
 
 

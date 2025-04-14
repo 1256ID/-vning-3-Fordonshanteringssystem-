@@ -114,62 +114,9 @@ namespace Fordonshanteringssystem
 
         }
 
-        public static void PrintAllProperties(object obj)
-        {
-           
-        }
+      
 
-        public static string[] GetVehicleAsArray(object obj)
-        {
-            var type = obj.GetType();
-            var properties = type.GetProperties();
-            int index = 0;
-            string[] outputArray = new string[properties.Length + 1];
-
-
-            foreach (var prop in properties)
-            {
-                var value = prop.GetValue(obj);
-                outputArray[index] = prop.Name + ": " + value;
-                index++;
-            }
-
-            outputArray[index] = "Gå tillbaka till förgående meny";
-
-            return outputArray;
-        }
-
-
-        public static string SavePropsToStringOnSameLine(object obj)
-        {
-            string output = "";
-            var type = obj.GetType();
-            var properties = type.GetProperties();            
-            string[] variableNames = ["hasroof", "cargocapacity", "hassidecar", "batteryrange"];
-            string lastVariable = "";
-            output += $"[{type.Name}] ";
-           
-            foreach (var prop in properties)
-            {
-                
-                var value = prop.GetValue(obj);
-                if (variableNames.Any(variableName => prop.Name.Equals(variableName.ToLower())))
-                {
-                    lastVariable = $" {prop.Name}: {value}";
-                }
-
-                else
-                {
-                    output += $" {prop.Name}: {value}";
-                }          
-            }
-
-            output += lastVariable;
-
-            return output;
-        }
-
-        public static string[] GetRelatedText(int selectedType, bool newObject)
+        public static string[] GetRelatedText(int vehicleType, bool newObject)
         {
             string confirmationText = "skapad";
 
@@ -196,8 +143,8 @@ namespace Fordonshanteringssystem
 
             string[] outputArray =
             {
-                uniqueVariableQuestion[selectedType],
-                creationText[selectedType]
+                uniqueVariableQuestion[vehicleType],
+                creationText[vehicleType]
             };
 
             return outputArray;

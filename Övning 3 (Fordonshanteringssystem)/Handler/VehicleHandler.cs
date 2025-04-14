@@ -104,7 +104,7 @@ namespace Fordonshanteringssystem.Handler
 
         public int GetVehicleCount()
         {
-            return Vehicles.Count();
+            return Vehicles.Count;
         }
 
     }

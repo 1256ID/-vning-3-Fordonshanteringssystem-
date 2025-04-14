@@ -38,7 +38,7 @@ internal class Menu
         {
             Console.Clear();
             Console.WriteLine(menuTitle + "\n");
-            Console.WriteLine(menuOutliners + "\n");
+            Console.WriteLine(menuOutliners);
 
 
             /* 
@@ -55,7 +55,7 @@ internal class Menu
             {
 
                 if (arr[i] == "Gå tillbaka till förgående meny")
-                    Console.WriteLine("\n" + menuOutliners + "\n");
+                    Console.WriteLine(menuOutliners + "\n");
 
                 string output = arr[i];
 
@@ -79,7 +79,7 @@ internal class Menu
             }
 
             if (arr[arr.Length - 1] != "Gå tillbaka till förgående meny")
-                Console.WriteLine("\n" + menuOutliners);
+                Console.WriteLine(menuOutliners);
 
 
 
