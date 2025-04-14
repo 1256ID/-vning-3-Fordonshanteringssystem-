@@ -116,16 +116,7 @@ namespace Fordonshanteringssystem
 
         public static void PrintAllProperties(object obj)
         {
-            var type = obj.GetType();
-            var properties = type.GetProperties();
-
-            Console.WriteLine($"[{type.Name}]");
-
-            foreach (var prop in properties)
-            {
-                var value = prop.GetValue(obj);
-                Console.WriteLine($" {prop.Name}: {value}");
-            }
+           
         }
 
         public static string[] GetVehicleAsArray(object obj)
@@ -158,7 +149,6 @@ namespace Fordonshanteringssystem
             string lastVariable = "";
             output += $"[{type.Name}] ";
            
-
             foreach (var prop in properties)
             {
                 

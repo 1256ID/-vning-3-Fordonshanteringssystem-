@@ -81,8 +81,33 @@ public abstract class Vehicle
     }
 
     public abstract void StartEngine();
-    public abstract void Stats();   
+    public virtual void Stats()
+    {
+        Console.WriteLine
+            (
+                $"Märke: {brand}\n" +
+                $"Modell: {model}\n" +
+                $"Årtal: {year}\n" +
+                $"Vikt: {weight}\n" 
+            );
+    }
 
+    /*
+    public virtual void Stats() 
+    {
+        var type = this.GetType();
+        var properties = type.GetProperties();
+
+        Console.WriteLine($"[{type.Name}]");
+
+        foreach (var prop in properties)
+        {
+            var value = prop.GetValue(this);
+            Console.WriteLine($" {prop.Name}: {value}");
+        }
+
+    }
+    */
 }
 
 

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Fordonshanteringssystem.Models
 {
-    internal class Car : Vehicle
+    class Car : Vehicle
     {
         private bool hasRoof;
 
@@ -23,6 +23,7 @@ namespace Fordonshanteringssystem.Models
 
         public override void StartEngine()
         {
+            Console.Clear();
             Console.Write("Sätter in nyckeln och vrider om.");
             Task.Delay(1000);
             Console.Write(".");
@@ -30,11 +31,17 @@ namespace Fordonshanteringssystem.Models
             Console.Write(".");
             Task.Delay(1000);
             Console.WriteLine("Vroom! Bilmotorn är igång.");
+            Console.ReadKey();
+            Console.WriteLine(Utils.continueText);
         }
 
         public override void Stats()
         {
-
-        }
+            base.Stats();
+            Console.WriteLine
+                (
+                    $"Bilen har ett tak: {hasRoof}"
+                );
+        } 
     }
 }

@@ -22,14 +22,22 @@ namespace Fordonshanteringssystem.Models
 
         public override void StartEngine()
         {
+            Console.Clear();
             Console.WriteLine("Trycker på strömknappen...");
             Task.Delay(500);
             Console.WriteLine("Mjukt pip. Lamporna tänds. Klar för tyst färd.");
+            Console.ReadKey();
+            Console.WriteLine(Utils.continueText);
         }
-
         public override void Stats()
         {
-
+            base.Stats();
+            Console.WriteLine
+                (
+                    $"Batteritid: {batteryRange}"
+                );
         }
+
+
     }
 }

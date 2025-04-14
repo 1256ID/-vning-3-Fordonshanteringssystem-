@@ -139,98 +139,6 @@ internal class Program
         } while (addingVehicle);
     }
 
-    public Vehicle GetUpdatedValue(Vehicle vehicle, int selectedVariable)
-    {
-        bool addingVehicle = true;
-
-        do
-        {
-            Console.Clear();
-            var type = vehicle.GetType();
-            int selectedType = 0;
-            string typeName = type.Name;
-            if (typeName == "Truck")
-                selectedType = 1;
-            else if (typeName == "MotorCycle")
-                selectedType = 2;
-            else if (typeName == "ElectricScooter")
-                selectedType = 3;
-
-            var properties = type.GetProperties();
-
-            string stringValue;
-            int year;
-            double weight;
-            int uniqueVariable = 0;
-           
-            object? newValue = null;
-            var initialValue = properties[selectedVariable].GetValue(vehicle);
-            string[] relevantText = Utils.GetRelatedText(selectedType, false);
-            string selectedPropName = vehicle.GetType()
-                .GetProperties()
-                .ElementAt(selectedVariable)
-                .Name;
-
-
-            string[] vehicleTypes =
-            {
-                "Bil",
-                "Motorcykel",
-                "Lastbil",
-                "El-scooter"
-            };    
-
-            if (selectedPropName  == "HasRoof" || selectedPropName  == "HasSidecar")
-            {
-                uniqueVariable = Menu.Display
-                (
-                   relevantText[0],
-                   [
-                        "Ja",
-                        "Nej"
-                   ], uniqueVariable
-                );
-            }          
-
-            else if (selectedPropName  == "CargoCapacity" || selectedPropName  == "BatteryRange")
-            {
-                uniqueVariable = Utils.PromptUserForNumericalInput(relevantText[0]);
-            }
-
-            else if (selectedPropName  == "Brand" || selectedPropName  == "Model")
-            {
-                stringValue = Utils.PromptUserForTextInput("Ange märke för " + vehicleTypes[selectedType] + ": ");
-            }
-
-            else if (selectedPropName  == "Year")
-            {
-                year = Utils.PromptUserForNumericalInput("årstal");
-            }
-
-            else if (selectedPropName  == "Weight")
-            {
-                weight = Utils.PromptUserForNumericalInput("vikt");
-            }
-          
-
-            if (newValue != null && newValue != initialValue)           
-                properties[selectedVariable].SetValue(vehicle, newValue);               
-
-            Console.Clear();
-            Console.WriteLine(relevantText[1] + Utils.continueText);
-            Console.ReadKey();
-            addingVehicle = false;
-
-
-        } while (addingVehicle);
-
-        return vehicle;
-
-
-    }
-
-
-
     public void ManangeVehicles()
     {
         int index = 0;
@@ -312,6 +220,97 @@ internal class Program
     }
 
 
+    public Vehicle GetUpdatedValue(Vehicle vehicle, int selectedVariable)
+    {
+        bool addingVehicle = true;
+
+        do
+        {
+            Console.Clear();
+            var type = vehicle.GetType();
+            int selectedType = 0;
+            string typeName = type.Name;
+            if (typeName == "Truck")
+                selectedType = 1;
+            else if (typeName == "MotorCycle")
+                selectedType = 2;
+            else if (typeName == "ElectricScooter")
+                selectedType = 3;
+
+            var properties = type.GetProperties();
+
+            string stringValue;
+            int year;
+            double weight;
+            int uniqueVariable = 0;
+
+            object? newValue = null;
+            var initialValue = properties[selectedVariable].GetValue(vehicle);
+            string[] relevantText = Utils.GetRelatedText(selectedType, false);
+            string selectedPropName = vehicle.GetType()
+                .GetProperties()
+                .ElementAt(selectedVariable)
+                .Name;
+
+
+            string[] vehicleTypes =
+            {
+                "Bil",
+                "Motorcykel",
+                "Lastbil",
+                "El-scooter"
+            };
+
+            if (selectedPropName == "HasRoof" || selectedPropName == "HasSidecar")
+            {
+                uniqueVariable = Menu.Display
+                (
+                   relevantText[0],
+                   [
+                        "Ja",
+                        "Nej"
+                   ], uniqueVariable
+                );
+            }
+
+            else if (selectedPropName == "CargoCapacity" || selectedPropName == "BatteryRange")
+            {
+                uniqueVariable = Utils.PromptUserForNumericalInput(relevantText[0]);
+            }
+
+            else if (selectedPropName == "Brand" || selectedPropName == "Model")
+            {
+                stringValue = Utils.PromptUserForTextInput("Ange märke för " + vehicleTypes[selectedType] + ": ");
+            }
+
+            else if (selectedPropName == "Year")
+            {
+                year = Utils.PromptUserForNumericalInput("årstal");
+            }
+
+            else if (selectedPropName == "Weight")
+            {
+                weight = Utils.PromptUserForNumericalInput("vikt");
+            }
+
+
+            if (newValue != null && newValue != initialValue)
+                properties[selectedVariable].SetValue(vehicle, newValue);
+
+            Console.Clear();
+            Console.WriteLine(relevantText[1] + Utils.continueText);
+            Console.ReadKey();
+            addingVehicle = false;
+
+
+        } while (addingVehicle);
+
+        return vehicle;
+
+
+    }
+
+
 
     public void RemoveVehicle(int index)
     {
@@ -348,7 +347,7 @@ internal class Program
         foreach (Vehicle vehicle in VehicleHandler.Vehicles)
         {
             Console.WriteLine("Fordon " + index + 1);
-            Utils.PrintAllProperties(vehicle);
+            
             index++;
         }
     }

@@ -22,6 +22,7 @@ namespace Fordonshanteringssystem.Models
 
         public override void StartEngine()
         {
+            Console.Clear();
             Console.WriteLine("Slår på huvudströmbrytaren och trycker på startknappen.");
             Task.Delay(800);
             Console.Write(".");
@@ -29,10 +30,18 @@ namespace Fordonshanteringssystem.Models
             Console.Write(".");
             Task.Delay(800);
             Console.WriteLine("Brrrmm! Motorcykeln är redo att köra.");
+            Console.ReadKey();
+            Console.WriteLine(Utils.continueText);
         }
+
         public override void Stats()
         {
-
+            base.Stats();
+            Console.WriteLine
+                (
+                    $"Har siddel: {HasSidecar}"
+                );
         }
+
     }
 }
