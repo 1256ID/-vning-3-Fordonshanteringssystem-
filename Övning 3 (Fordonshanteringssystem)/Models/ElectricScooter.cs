@@ -22,6 +22,7 @@ namespace Fordonshanteringssystem.Models
 
         public override async void StartEngine()
         {
+            
             Console.Write("Trycker på strömknappen.");
             await Task.Delay(1000);
             Console.Write(".");

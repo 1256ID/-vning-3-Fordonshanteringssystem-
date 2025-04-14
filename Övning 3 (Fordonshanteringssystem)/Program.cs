@@ -4,6 +4,7 @@ using System.Threading.Channels;
 using Fordonshanteringssystem.Handler;
 using Fordonshanteringssystem.Models;
 
+
 namespace Fordonshanteringssystem;
 
 internal class Program
@@ -15,9 +16,9 @@ internal class Program
         int index = 0;
         bool programIsRunning = true;
         Program program = new();
+
         program.VehicleHandler.LoadSampleData();
-        Random random = new Random();
-        int randomValue = random.Next(1, 6);
+        
 
         do
         {
@@ -28,6 +29,8 @@ internal class Program
                 [
                     "Lägg till fordon",
                     "Hantera fordon",
+                    "Skriv ut errormeddelande",
+                    "Loopa igenom fordonslistan",
                     "Avsluta programmet"
                 ], index
             );
@@ -35,14 +38,47 @@ internal class Program
             switch (index)
             {
                 case 0:
+
                     program.AddVehicle();
-                    break;
+
+                break;
+
                 case 1:
+
                     program.ManangeVehicles();
-                    break;
+
+                break;
+
                 case 2:
+
+                    Console.Clear();
+                    List<SystemError> errorList = program.AddSystemErrors();
+                    foreach (SystemError error in errorList)
+                    {
+                        Console.WriteLine(error.ErrorMessage());
+                    }
+                    Console.ReadKey();
+
+                break;
+
+                case 3:
+                    Console.Clear();
+                    Console.WriteLine("Klicka på valfri tangent för att gå igenom listan\n");
+                    foreach (Vehicle vehicle in program.VehicleHandler.Vehicles)
+                    {
+                        Console.WriteLine(Environment.NewLine); 
+                        vehicle.Stats();
+                        vehicle.StartEngine();
+                        Console.ReadKey();                     
+                    }
+
+                break;
+
+                case 4:
+
                     programIsRunning = false;
-                    break;
+
+                break;
             }
         } while (programIsRunning);
 
@@ -168,13 +204,13 @@ internal class Program
                 string stats = selectedVehicle.StatsAsString(false);
                 index = Menu.Display
                 (
-                      "Fordon\n\n" + stats + "\n\n",
-                      [
-                            "Starta fordonet",
-                            "Ändra på fordonet",
-                            "Ta bort fordonet",
-                            "Gå tillbaka till förgående meny"
-                      ],    index
+                    "Fordon\n\n" + stats + "\n\n",
+                    [
+                        "Starta fordonet",
+                        "Ändra på fordonet",
+                        "Ta bort fordonet",
+                        "Gå tillbaka till förgående meny"
+                    ],  index
                 );
 
                 switch (index)
@@ -373,7 +409,14 @@ internal class Program
         return vehicleArray;
     }
 
+    public List<SystemError> AddSystemErrors()
+    {
+        EngineFailureError engineSystemError = new();
+        BrakeFailureError brakeFailureError = new ();
+        TransmissionError transmissionError = new();
 
+        return [engineSystemError, brakeFailureError, transmissionError];
+    }
     
 
 

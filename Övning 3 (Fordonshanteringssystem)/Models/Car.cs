@@ -23,6 +23,7 @@ namespace Fordonshanteringssystem.Models
 
         public override async void StartEngine()
         {
+      
             Console.Write("Sätter in nyckeln och vrider om.");
             await Task.Delay(2000);
             Console.Write(".");
@@ -30,7 +31,7 @@ namespace Fordonshanteringssystem.Models
             Console.Write(".");
             await Task.Delay(2000);
             Console.WriteLine("Vroom! Bilmotorn är igång.");
-            Console.WriteLine(Utils.continueText);         
+            Console.WriteLine(Utils.continueText);      
         }
 
         public override void Stats()
