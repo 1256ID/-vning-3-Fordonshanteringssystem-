@@ -253,8 +253,17 @@ internal class Program
 
                         if (propIndex != selectedVehicleArray.Length - 1)
                         {
-                            selectedVehicle = GetUpdatedValue(selectedVehicle, propIndex);
-                            VehicleHandler.Update(selectedVehicle, vehicleIndex);
+                            try
+                            {
+                                selectedVehicle = GetUpdatedValue(selectedVehicle, propIndex);
+                                VehicleHandler.Update(selectedVehicle, vehicleIndex);
+                            }
+
+                            catch (Exception err) 
+                            {
+                                Console.WriteLine(err + "\n\n" + Utils.tryAgainText);
+                                Console.ReadKey();
+                            }                            
                         }
                         
                     break;
@@ -326,7 +335,7 @@ internal class Program
                 selectedStat = 0;
             }
 
-                var newValue = properties[selectedStat].GetValue(vehicle);
+            var newValue = properties[selectedStat].GetValue(vehicle);
             string[] relevantText = Utils.GetRelatedText(vehicleType, false);
             string selectedPropName = vehicle.GetType()
                 .GetProperties()
