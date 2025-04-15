@@ -45,7 +45,7 @@ internal class Program
 
                 case 1:
 
-                    program.ManangeVehicles();
+                    program.ManageVehicles();
 
                 break;
 
@@ -108,7 +108,8 @@ internal class Program
                 "Bil",
                 "Motorcykel",
                 "Lastbil",
-                "El-scooter"
+                "El-scooter",
+                "Gå tillbaka till förgående meny"
             };
 
 
@@ -138,6 +139,12 @@ internal class Program
                     selectedType
                 );
 
+            if (selectedType == 4)
+            {
+                addingVehicle = false;
+                break;
+            }
+
             brand = Utils.PromptUserForTextInput("Ange märke för " + vehicleTypes[selectedType] + ": ");
             model = Utils.PromptUserForTextInput("Ange model för " + vehicleTypes[selectedType] + ": ");
             year = Utils.PromptUserForNumericalInput("årstal");
@@ -160,16 +167,26 @@ internal class Program
                 uniqueVariable = Utils.PromptUserForNumericalInput(uniqueVariableQuestion[selectedType]);
             }
 
-            Console.Clear();
-            VehicleHandler.CreateVehicle(brand, model, year, weight, uniqueVariable, selectedType);
-            Console.WriteLine(creationText[selectedType] + Utils.continueText);
-            Console.ReadKey();
-            addingVehicle = false;
+            try
+            {
+                Console.Clear();
+                VehicleHandler.CreateVehicle(brand, model, year, weight, uniqueVariable, selectedType);
+                Console.WriteLine(creationText[selectedType] + Utils.continueText);
+                Console.ReadKey();
+                addingVehicle = false;
+            }
+
+            catch (Exception err)
+            {
+                Console.WriteLine(err + "\n\n" + Utils.tryAgainText);
+                Console.ReadKey();
+            }
+            
 
         } while (addingVehicle);
     }
 
-    public void ManangeVehicles()
+    public void ManageVehicles()
     {
         
         int vehicleIndex = 0;     

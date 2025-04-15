@@ -61,20 +61,20 @@ public abstract class Vehicle
             if (value > 0)
                 weight = value;
             else
-                throw new ArgumentException("Vikten måste vara större än noll.");       
+                throw new ArgumentException("Vikten måste vara högre än noll.");       
         }
     }
 
-    private string ValidateName(string value)
+    private static string ValidateName(string value)
     {
         if (string.IsNullOrEmpty(value))
         {
             throw new ArgumentNullException("Inmatningsvärdet får inte vara null/tomt.");
         }
-
+    
         if (value.Length < 2 || value.Length > 20)
         {
-            throw new ArgumentException("Inmatningen måste vara mellan 2 - 20 karaktärer.");
+             throw new ArgumentException("Inmatningen måste vara mellan 2 - 20 karaktärer.");
         }
 
         return value;

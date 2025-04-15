@@ -8,7 +8,7 @@ namespace Fordonshanteringssystem.Models
 {
     class Truck : Vehicle
     {
-        private int cargoCapacity;
+        private int cargoCapacity = 1;
 
         public Truck()
         {
@@ -18,7 +18,18 @@ namespace Fordonshanteringssystem.Models
         public int CargoCapacity
         {
             get { return cargoCapacity; }
-            set { cargoCapacity = value; }
+            set 
+            {
+                if (cargoCapacity != value && cargoCapacity > 0)
+                {
+                    cargoCapacity = value;
+                }
+
+                else
+                {
+                    throw new ArgumentException("Värdet måste vara högre än 0.");
+                }
+            }
         }
         public override async void StartEngine()
         {

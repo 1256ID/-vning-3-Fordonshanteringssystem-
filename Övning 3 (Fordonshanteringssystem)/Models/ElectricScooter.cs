@@ -17,7 +17,13 @@ namespace Fordonshanteringssystem.Models
         public int BatteryRange
         {
             get { return batteryRange; }
-            set { batteryRange = value; }
+            set 
+            {
+                if (batteryRange != value && batteryRange > 0)
+                {
+                    batteryRange = value;
+                }
+            }
         }
 
         public override async void StartEngine()

@@ -30,7 +30,7 @@ namespace Fordonshanteringssystem
                         Console.WriteLine("Inmatningen får inte vara tom\n\n" + tryAgainText);
                         Console.ReadKey();
                     }
-
+                    
                     else
                     {
                         if (input != null)
@@ -42,11 +42,11 @@ namespace Fordonshanteringssystem
                     }
                 }
 
-                catch
+                catch 
                 {
-                    Console.WriteLine("Ogiltig inmatning\n\n" + tryAgainText);
+                    Console.WriteLine(tryAgainText + "\n\n" + tryAgainText);
                     Console.ReadKey();
-                }
+                }                         
             }
 
             return output;
@@ -62,6 +62,7 @@ namespace Fordonshanteringssystem
             {
                 try
                 {
+                    Console.Clear();
                     Console.Write("Var vänlig och fyll i " + attributeName + ": ");
                     string? input = Console.ReadLine();
 
@@ -78,35 +79,22 @@ namespace Fordonshanteringssystem
                     {
                         bool validInput = int.TryParse(input, out output);
                         if (validInput)
-                        {
-                            if (output < 0)
-                            {
-                                Console.WriteLine
-                                    ("Var vänlig och använd ett positivt tal" + continueText);
-                                Console.ReadKey();
-                                Console.Clear();
-                            }
-
-                            else
-                            {
-                                waitingForCorrectInput = false;
-                            }
+                        {                                                     
+                            waitingForCorrectInput = false;                         
                         }
 
                         else
                         {
                             Console.WriteLine(tryAgainText + continueText);
-                            Console.ReadKey();
-                            Console.Clear();
+                            Console.ReadKey();                            
                         }
                     }
                 }
 
-                catch
+                catch 
                 {
-                    Console.WriteLine(tryAgainText + continueText);
+                    Console.WriteLine(tryAgainText + "\n\n" + tryAgainText);
                     Console.ReadKey();
-                    Console.Clear();
                 }
             }
 
