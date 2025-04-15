@@ -12,6 +12,8 @@ namespace Fordonshanteringssystem.Handler
     {
         public List<Vehicle> Vehicles { get; private set; } = [];
 
+        
+
         public VehicleHandler() 
         { 
             
@@ -20,6 +22,35 @@ namespace Fordonshanteringssystem.Handler
         public void LoadSampleData()
         {
             Vehicles.AddRange(SampleData.GetSampleVehicles());
+        }
+
+        /*
+        public void AddCarToMotorcycleList()
+        {
+
+            Fråga 1 - 2
+           
+            List<Motorcycle> motorcycles = [];
+            Car vehicle = new Car();
+            motorcycles.Add(vehicle);
+                                  
+                Jag får följande error när jag försöker lägga till class:en <Car> i en motorcykel lista:
+
+                CS1503: Argument 1: cannot convert from 'Fordonshanteringssystem.Car' to 'Fordonshanteringssystem.Motorcycle'
+
+                Detta sker pga att en lista med typ <Motorcycle> enbart kan ta emot objekt av samma typ.
+
+                Det enda sättet att kringå detta är genom att lägga till dem i en List<Vehicle> då både 
+                klasserna ärver <Vehicle> och kan därav vara med i samma list så länge den listan är av typ <Vehicle>.
+
+                Detta appliceras även för alla samtliga klasser.
+      
+        }
+        */
+
+        public void test()
+        {
+            
         }
 
         public void CreateVehicle(string brand, string model, int year, double weight, int uniqueVariable, int selectedType)
@@ -108,11 +139,4 @@ namespace Fordonshanteringssystem.Handler
         }
 
     }
-
-    interface ICleanable
-    {
-        void Clean();
-    }
-
-   
 }

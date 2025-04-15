@@ -26,17 +26,9 @@ namespace Fordonshanteringssystem.Models
             }
         }
 
-        public override async void StartEngine()
-        {
-            
-            Console.Write("Trycker på strömknappen.");
-            await Task.Delay(1000);
-            Console.Write(".");
-            await Task.Delay(1000);
-            Console.Write(".");
-            await Task.Delay(1000);
+        public override void StartEngine()
+        {                 
             Console.WriteLine("\n\nMjukt pip. Lamporna tänds. Klar för tyst färd.");
-            Console.WriteLine(Utils.continueText);
         }
         public override void Stats()
         {

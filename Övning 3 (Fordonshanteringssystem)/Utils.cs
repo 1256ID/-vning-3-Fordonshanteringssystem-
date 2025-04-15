@@ -10,7 +10,6 @@ namespace Fordonshanteringssystem
     internal class Utils
     {
 
-        public static string tryAgainText = "Var vänlig och försök igen";
         public static string continueText = "\n\nKlicka på valfri tangent för att fortsätta";
 
         public static string PromptUserForTextInput(string writeLineText)
@@ -27,8 +26,8 @@ namespace Fordonshanteringssystem
                     string? input = Console.ReadLine();
                     if (string.IsNullOrEmpty(input))
                     {
-                        Console.WriteLine("Inmatningen får inte vara tom\n\n" + tryAgainText);
-                        Console.ReadKey();
+                        Console.WriteLine("Inmatningen får inte vara tom\n\n");
+                        WaitForEnterKey();
                     }
                     
                     else
@@ -44,8 +43,7 @@ namespace Fordonshanteringssystem
 
                 catch 
                 {
-                    Console.WriteLine(tryAgainText + "\n\n" + tryAgainText);
-                    Console.ReadKey();
+                    Utils.WaitForEnterKey();
                 }                         
             }
 
@@ -70,8 +68,8 @@ namespace Fordonshanteringssystem
                     {
                         Console.WriteLine
                             ("Var vänlig och använd siffor för att ange " +
-                            attributeName + continueText);
-                        Console.ReadKey();
+                            attributeName);
+                        Utils.WaitForEnterKey();
                         Console.Clear();
                     }
 
@@ -85,16 +83,14 @@ namespace Fordonshanteringssystem
 
                         else
                         {
-                            Console.WriteLine(tryAgainText + continueText);
-                            Console.ReadKey();                            
+                            Utils.WaitForEnterKey();
                         }
                     }
                 }
 
                 catch 
                 {
-                    Console.WriteLine(tryAgainText + "\n\n" + tryAgainText);
-                    Console.ReadKey();
+                    Utils.WaitForEnterKey();
                 }
             }
 
@@ -137,7 +133,23 @@ namespace Fordonshanteringssystem
 
             return outputArray;
         }
+        
+        public static void WaitForEnterKey()
+        {
+            while (true)
+            {
+                Console.WriteLine("\nVar vänlig och klicka ENTER för att fortsätta");
+                ConsoleKeyInfo key = Console.ReadKey();
 
-       
+                if (key.Key == ConsoleKey.Enter)
+                    break;
+
+                else
+                    Console.Clear();
+                    Console.WriteLine("Ogiltig inmatning, var vänlig och klicka ENTER för att fortsätta");
+                                                                 
+            }            
+        }
+        
     }
 }

@@ -20,16 +20,9 @@ namespace Fordonshanteringssystem.Models
             set { hasSidecar = value; }
         }
 
-        public override async void StartEngine()
-        {
-            Console.Write("Slår på huvudströmbrytaren och trycker på startknappen.");
-            await Task.Delay(2000);
-            Console.Write(".");
-            await Task.Delay(2000);
-            Console.Write(".");
-            await Task.Delay(2000);
-            Console.WriteLine("\n\nBrrrmm! Motorcykeln är redo att köra.");
-            Console.WriteLine(Utils.continueText);     
+        public override void StartEngine()
+        {      
+            Console.WriteLine("\n\nBrrrmm! Motorcykeln är redo att köra.");    
         }
 
         public override void Stats()

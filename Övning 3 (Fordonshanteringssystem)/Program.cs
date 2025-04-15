@@ -57,20 +57,41 @@ internal class Program
                     {
                         Console.WriteLine(error.ErrorMessage());
                     }
-                    Console.ReadKey();
 
-                break;
+                    Utils.WaitForEnterKey();
+
+                    break;
 
                 case 3:
+
+                    /*
+                        Fråga 3
+
+                        Nej, jag kommer inte åt metoden Clean() direkt genom List<Vehicle> då Clean() metoden endast implementeras i <Car> och <Truck>.
+            
+                        En List<Vehicle> kan innehålla en <Car> eller <Truck> men kan också innehålla en <Motorcycle> eller <ElectricScooter> som       
+                        i sin del inte innehåller Clean(). Det enda sättet som jag kan komma åt Clean() är genom en foreach loop där jag först 
+                        måste kontrollera ifall objektet innehåller ICleanable. Ifall det existerar så kan jag sedan anropa men det kan endast 
+                        ske ifall objektet är av typ <Car> eller <Truck>.
+                         
+                     
+                    */
+
                     Console.Clear();
-                    Console.WriteLine("Klicka på valfri tangent för att gå igenom listan\n");
                     foreach (Vehicle vehicle in program.VehicleHandler.Vehicles)
                     {
-                        Console.WriteLine(Environment.NewLine); 
+                        Console.WriteLine(Environment.NewLine);                                               
                         vehicle.Stats();
+
+                        if (vehicle is ICleanable cleanable)
+                        {
+                            cleanable.Clean();
+                        }
                         vehicle.StartEngine();
-                        Console.ReadKey();                     
+                                           
                     }
+
+                    Utils.WaitForEnterKey();
 
                 break;
 
@@ -171,15 +192,15 @@ internal class Program
             {
                 Console.Clear();
                 VehicleHandler.CreateVehicle(brand, model, year, weight, uniqueVariable, selectedType);
-                Console.WriteLine(creationText[selectedType] + Utils.continueText);
-                Console.ReadKey();
+                Console.WriteLine(creationText[selectedType]);
+                Utils.WaitForEnterKey();                
                 addingVehicle = false;
             }
 
             catch (Exception err)
             {
-                Console.WriteLine(err + "\n\n" + Utils.tryAgainText);
-                Console.ReadKey();
+                Console.WriteLine(err + "\n\n");
+                Utils.WaitForEnterKey();
             }
             
 
@@ -236,7 +257,7 @@ internal class Program
 
                         Console.Clear();
                         selectedVehicle.StartEngine();
-                        Console.ReadKey();
+                        Utils.WaitForEnterKey();
 
                     break;
 
@@ -261,8 +282,8 @@ internal class Program
 
                             catch (Exception err) 
                             {
-                                Console.WriteLine(err + "\n\n" + Utils.tryAgainText);
-                                Console.ReadKey();
+                                Console.WriteLine(err + "\n\n");
+                                Utils.WaitForEnterKey();
                             }                            
                         }
                         
@@ -397,7 +418,7 @@ internal class Program
                 Console.WriteLine("Ingen ändring har gjorts.");
             }
                     
-            Console.ReadKey();
+            Utils.WaitForEnterKey();
             addingVehicle = false;
 
 

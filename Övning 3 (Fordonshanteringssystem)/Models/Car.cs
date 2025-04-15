@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Fordonshanteringssystem.Models
 {
-    class Car : Vehicle
+    class Car : Vehicle, ICleanable
     {
         private bool hasRoof;
 
@@ -19,18 +19,11 @@ namespace Fordonshanteringssystem.Models
         {
             get { return hasRoof; }
             set {  hasRoof = value; }                
-        }
+        }       
 
-        public override async void StartEngine()
-        {     
-            Console.Write("Sätter in nyckeln och vrider om.");
-            await Task.Delay(2000);
-            Console.Write(".");
-            await Task.Delay(2000);
-            Console.Write(".");
-            await Task.Delay(2000);
-            Console.WriteLine("Vroom! Bilmotorn är igång.");
-            Console.WriteLine(Utils.continueText);      
+        public override void StartEngine()
+        {                
+            Console.WriteLine("\nVroom! Bilmotorn är igång.");             
         }
 
         public override void Stats()
@@ -61,6 +54,10 @@ namespace Fordonshanteringssystem.Models
             return array;
         }
 
-
+        public void Clean()
+        {
+            Console.WriteLine("\nBilen är nu tvättad.");
+            
+        }
     }
 }

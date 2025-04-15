@@ -63,7 +63,7 @@ public abstract class Vehicle
             else
                 throw new ArgumentException("Vikten måste vara högre än noll.");       
         }
-    }
+    } 
 
     private static string ValidateName(string value)
     {
@@ -118,11 +118,27 @@ public abstract class Vehicle
 
 
         return array;
-    }
-
-
-
-
+    }   
 }
+
+/*
+     Fråga 4
+
+    Vad är fördelarna med att använda ett interface här istället för arv?
+
+    En klass kan enbart ärva en basklass medans den kan ärva flera interfaces. 
+    Så ifall en klass enbart ärver från en basklass så måste alla metoder, variabler 
+    ärvas från en klass medans ifall vi använder oss av interfaces så kan vi ärva från 
+    flera och separera logik så att allt inte ligger på ett och samma ställe.
+    
+*/
+
+public interface ICleanable
+{
+    void Clean();
+       
+}
+
+
 
 

@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Fordonshanteringssystem.Models
 {
-    class Truck : Vehicle
+    class Truck : Vehicle, ICleanable
     {
-        private int cargoCapacity = 1;
+        private int cargoCapacity = 1;        
 
         public Truck()
         {
@@ -30,23 +30,11 @@ namespace Fordonshanteringssystem.Models
                     throw new ArgumentException("Värdet måste vara högre än 0.");
                 }
             }
-        }
-        public override async void StartEngine()
+        }        
+
+        public override void StartEngine()
         {
-            Console.Write("Startar tändningen för tung last.");
-            await Task.Delay(2000);
-            Console.Write(".");
-            await Task.Delay(2000);
-            Console.Write(".");
-            await Task.Delay(2000);
-            Console.Write("\nDjupt mullrande.");
-            await Task.Delay(2000);
-            Console.Write(".");
-            await Task.Delay(2000);
-            Console.Write(".");
-            await Task.Delay(2000);
             Console.WriteLine("\n\nLastbilsmotorn går igång med kraft.");
-            Console.WriteLine(Utils.continueText);
         }
 
         public override void Stats()
@@ -67,5 +55,11 @@ namespace Fordonshanteringssystem.Models
             return output += newLine + $"Lastkapacitet: {CargoCapacity}";
 
         }
+
+        void ICleanable.Clean()
+        {                       
+            Console.WriteLine("\nLastbilen är nu tvättad.");          
+        }
+     
     }
 }
