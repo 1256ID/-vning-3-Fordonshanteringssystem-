@@ -54,9 +54,7 @@ namespace Fordonshanteringssystem.Handler
         }
 
         public void CreateVehicle(string brand, string model, int year, double weight, int uniqueVariable, int selectedType)
-        {
-
-            Vehicle vehicle = new Car();
+        {          
             bool boolValue = false;
 
             if (selectedType == 0 || selectedType == 2)
@@ -66,7 +64,7 @@ namespace Fordonshanteringssystem.Handler
             if (selectedType == 0)
             {
 
-                vehicle = new Car
+                Car car = new()
                 {
                     Brand = brand,
                     Model = model,
@@ -74,11 +72,13 @@ namespace Fordonshanteringssystem.Handler
                     Weight = weight,
                     HasRoof = boolValue
                 };
+
+                Add(car);
             }
 
             else if (selectedType == 1)
             {
-                Vehicle newTruck = new Truck
+                Truck truck = new()
                 {
                     Brand = brand,
                     Model = model,
@@ -86,11 +86,13 @@ namespace Fordonshanteringssystem.Handler
                     Weight = weight,
                     CargoCapacity = uniqueVariable
                 };
+
+                Add(truck);
             }
 
             else if (selectedType == 2)
             {
-                Vehicle newMotorcycle = new Motorcycle
+                Motorcycle motorCycle = new()
                 {
                     Brand = brand,
                     Model = model,
@@ -98,11 +100,13 @@ namespace Fordonshanteringssystem.Handler
                     Weight = weight,
                     HasSidecar = boolValue
                 };
+
+                Add(motorCycle);
             }
 
             else if (selectedType == 3) 
             {
-                Vehicle newElectricScooter = new ElectricScooter
+                ElectricScooter electricScooter = new()
                 {
                     Brand = brand,
                     Model = model,
@@ -111,10 +115,8 @@ namespace Fordonshanteringssystem.Handler
                     BatteryRange = uniqueVariable
                 };
 
-            }
-
-                Add(vehicle);
-
+                Add(electricScooter);
+            }              
         }
 
         public void Add(Vehicle vehicle)
