@@ -44,11 +44,10 @@ public abstract class Vehicle
         get { return year; }
         set
         {
-            DateTime dateOfToday = DateTime.Today;
-            if (value >= 1886 && value <= dateOfToday.Year)
+            if (value >= 1886 && value <= DateTime.Today.Year)
                 year = value;
             else            
-                throw new ArgumentException("Årtalet måste vara mellan 1886 och " + Convert.ToString(dateOfToday.Year));
+                throw new ArgumentException("Årtalet måste vara mellan 1886 och " + Convert.ToString(DateTime.Today.Year));
             
         }
     }
